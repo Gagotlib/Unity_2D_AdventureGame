@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
     // Called at fixed intervals. Used for physics updates.
     void FixedUpdate()
     {
-
         Vector2 position = (Vector2)rigidbody2d.position + movementSpeed * Time.deltaTime * move;
         rigidbody2d.MovePosition(position);
     }
@@ -97,6 +96,6 @@ public class PlayerController : MonoBehaviour
         }
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        Debug.Log(currentHealth + "/" + maxHealth);
+        UIHandler.Instance.SetHealthValue(currentHealth / (float)maxHealth);
     }
 }
