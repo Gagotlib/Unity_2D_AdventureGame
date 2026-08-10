@@ -1,13 +1,17 @@
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class EnemyController : MonoBehaviour
 {
+    Animator animator;
+
     [Header("Movement")]
     public float enemySpeed = 3.0f;
     Rigidbody2D rigidbody2d;
 
     [Header("Direction")]
     public bool vertical;
+    int direction = 1;
 
     [Header("Random Movement")]
     public bool randomMovement;
@@ -15,13 +19,13 @@ public class EnemyController : MonoBehaviour
     [Header("Patrol Time")]
     public float changeTime = 1.7f;
     float timer;
-    int direction = 1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         timer = changeTime;
+        animator = GetComponent<Animator>();
     }
 
 
@@ -69,10 +73,14 @@ public class EnemyController : MonoBehaviour
         if (vertical)
         {
             position.y += enemySpeed * Time.deltaTime * direction;
+            animator.SetFloat("Move X", 0);
+            animator.SetFloat("Move Y", direction);
         }
         else
         {
             position.x += enemySpeed * Time.deltaTime * direction;
+            animator.SetFloat("Move X", direction);
+            animator.SetFloat("Move Y", 0);
         }
         rigidbody2d.MovePosition(position);
     }

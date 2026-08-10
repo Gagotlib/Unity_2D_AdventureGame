@@ -6594,7 +6594,7 @@ PrefabInstance:
     - target: {fileID: 1116649305700147203, guid: 890a4324dc199dc40afa250bd264af71,
         type: 3}
       propertyPath: randomMovement
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358930383993590869, guid: 890a4324dc199dc40afa250bd264af71,
         type: 3}

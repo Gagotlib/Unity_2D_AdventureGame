@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6642158236354676637}
   - component: {fileID: 4107619081275571575}
   - component: {fileID: 3629593315720359963}
+  - component: {fileID: -4742007467520876253}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -198,6 +199,8 @@ MonoBehaviour:
     m_Flags: 0
   movementSpeed: 4
   maxHealth: 5
+  healDuration: 2
+  timeInvincible: 2
 --- !u!50 &4107619081275571575
 Rigidbody2D:
   serializedVersion: 5
@@ -271,3 +274,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6773813, y: 0.4404828}
   m_EdgeRadius: 0
+--- !u!95 &-4742007467520876253
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178680742725265920}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 34d36e1bead33a942930d6f3d41aa8fa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
