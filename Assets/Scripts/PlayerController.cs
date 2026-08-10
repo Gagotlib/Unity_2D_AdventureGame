@@ -34,11 +34,25 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Vector2 moveDirection = new Vector2(1, 0);
 
+    // Projectile launching
+    [Header("Projectile Launching")]
+    public InputAction launchAction;
+    public GameObject projectilePrefab;
+    public float launchForce = 300.0f;
+    [Header("Shoot Time")]
+    public float shootTime = 0.5f;
+    float shootTimer;
+    bool isShooting;
+
+    [Header("Talk")]
+    public InputAction talkAction;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         MoveAction.Enable();
+        talkAction.Enable();
+        launchAction.Enable();
         rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
@@ -73,6 +87,26 @@ public class PlayerController : MonoBehaviour
                 isHealing = false;
             }
         }
+
+        if (isShooting)
+        {
+            shootTimer -= Time.deltaTime;
+            if (shootTimer < 0)
+            {
+                isShooting = false;
+            }
+        }
+
+        if (launchAction.triggered)
+        {
+            Launch();
+        }
+
+
+        if (talkAction.triggered)
+        {
+            FindFriend();
+        }
     }
 
     // Called at fixed intervals. Used for physics updates.
@@ -80,6 +114,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 position = (Vector2)rigidbody2d.position + movementSpeed * Time.deltaTime * move;
         rigidbody2d.MovePosition(position);
+
     }
 
     public void ChangeHealth(int amount)
@@ -111,5 +146,34 @@ public class PlayerController : MonoBehaviour
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHandler.Instance.SetHealthValue(currentHealth / (float)maxHealth);
+    }
+
+    void Launch()
+    {
+        if (isShooting)
+        {
+            return;
+        }
+        isShooting = true;
+        shootTimer = shootTime;
+        GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        projectile.Launch(moveDirection, launchForce);
+        animator.SetTrigger("Launch");
+    }
+    void FindFriend()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, moveDirection, 1.5f, LayerMask.GetMask("NPC"));
+
+        Debug.Log("Look direction: " + moveDirection);
+
+        if (hit.collider != null)
+        {
+            NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
+            if (character != null)
+            {
+                UIHandler.Instance.DisplayDialogue(character.dialogue);
+            }
+        }
     }
 }

@@ -20,6 +20,8 @@ public class EnemyController : MonoBehaviour
     public float changeTime = 1.7f;
     float timer;
 
+    bool broken = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -69,6 +71,10 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!broken)
+        {
+            return;
+        }
         Vector2 position = rigidbody2d.position;
         if (vertical)
         {
@@ -93,4 +99,10 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void Fix()
+    {
+        broken = false;
+        rigidbody2d.simulated = false;
+        animator.SetTrigger("Fixed");
+    }
 }

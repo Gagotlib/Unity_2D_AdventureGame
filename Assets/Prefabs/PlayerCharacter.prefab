@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4107619081275571575}
   - component: {fileID: 3629593315720359963}
   - component: {fileID: -4742007467520876253}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,6 +201,44 @@ MonoBehaviour:
   maxHealth: 5
   healDuration: 2
   timeInvincible: 2
+  launchAction:
+    m_Name: Launch
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 57c9d2ec-1b99-4e54-85d4-417bcd9db992
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 6c4a7173-e3af-4899-8d63-9cb09f22f0a6
+      m_Path: <Keyboard>/c
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Launch
+      m_Flags: 0
+    m_Flags: 0
+  projectilePrefab: {fileID: 4366320435336075294, guid: aaf4d32878e183c4db1d0ecda0b1909f,
+    type: 3}
+  launchForce: 300
+  shootTime: 0.5
+  talkAction:
+    m_Name: Talk
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8a717fc4-64a6-4102-90ae-0bf83a3065e8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9e87527e-4b87-4343-abde-3f07efa31de6
+      m_Path: <Keyboard>/x
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Talk
+      m_Flags: 0
+    m_Flags: 0
 --- !u!50 &4107619081275571575
 Rigidbody2D:
   serializedVersion: 5
