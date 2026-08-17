@@ -12,6 +12,7 @@ public class UIHandler : MonoBehaviour
     private VisualElement m_NonPlayerDialogue;
     private float m_TimerDisplay;
     private VisualElement m_GameOverScreen;
+    private VisualElement m_StartScreen;
 
     private void Awake()
     {
@@ -37,6 +38,17 @@ public class UIHandler : MonoBehaviour
             if (restartButton != null)
             {
                 restartButton.clicked += RestartGame;
+            }
+        }
+
+        m_StartScreen = uiDocument.rootVisualElement.Q<VisualElement>("StartScreen");
+        if (m_StartScreen != null)
+        {
+            m_StartScreen.style.display = DisplayStyle.Flex;
+            Button startButton = m_StartScreen.Q<Button>("StartButton");
+            if (startButton != null)
+            {
+                startButton.clicked += StartGame;
             }
         }
     }
@@ -79,6 +91,19 @@ public class UIHandler : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex
         );
+    }
+
+    private void StartGame()
+    {
+        if (m_StartScreen != null)
+        {
+            m_StartScreen.style.display = DisplayStyle.None;
+        }
+        Time.timeScale = 1.0f;
+        if (PlayerController.Instance != null)
+        {
+            PlayerController.Instance.StartGame();
+        }
     }
 }
 

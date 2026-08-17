@@ -9,9 +9,20 @@
     </ui:VisualElement>
     <ui:Instance template="NPCDialog" name="NPCDialogue" style="position: absolute; left: 10%; top: 70%; right: 95px; bottom: 5%;"/>
     <ui:VisualElement name="GameOverScreen" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; background-color: rgba(10, 10, 10, 0.85); display: none;">
-        <ui:Label text="Haz muerto" style="font-size: 64px; color: rgb(220, 53, 69); -unity-font-style: bold; -unity-text-align: middle-center; margin-bottom: 10px; letter-spacing: 5px;"/>
+        <ui:Label text="Game Over" style="font-size: 64px; color: rgb(220, 53, 69); -unity-font-style: bold; -unity-text-align: middle-center; margin-bottom: 10px; letter-spacing: 5px;"/>
         <ui:Label text="Presiona R o haz clic abajo para volver a intentar" style="font-size: 20px; color: rgb(180, 180, 180); -unity-text-align: middle-center; margin-bottom: 30px;"/>
         <ui:Button name="RestartButton" text="VOLVER A JUGAR" style="font-size: 18px; padding: 12px 35px; border-radius: 8px; background-color: rgb(220, 53, 69); color: white; border-width: 0; -unity-font-style: bold; cursor: link; transition-property: background-color; transition-duration: 0.15s;"/>
     </ui:VisualElement>
     <ui:Instance template="GameOverScreen" name="GameOverScreen" enabled="false"/>
+    <ui:VisualElement name="StartScreen" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; background-color: rgba(15, 23, 42, 0.95); display: flex;">
+        <ui:VisualElement style="background-color: rgb(30, 41, 59); padding: 40px; border-radius: 16px; border-width: 2px; border-color: rgb(71, 85, 105); align-items: center; max-width: 600px; width: 85%;">
+            <ui:Label text="CONTROLES DEL JUEGO" style="font-size: 32px; color: rgb(250, 204, 21); -unity-font-style: bold; margin-bottom: 25px; letter-spacing: 2px;"/>
+            <ui:VisualElement style="align-self: stretch; margin-bottom: 30px;">
+                <ui:Label text="• Moverse: Flechas direccionales o WASD" style="font-size: 18px; color: white; margin-bottom: 12px;"/>
+                <ui:Label text="• Hablar: Presiona X para hablar con NPCs" style="font-size: 18px; color: white; margin-bottom: 12px;"/>
+                <ui:Label text="• Disparar: Presiona C para lanzar proyectiles" style="font-size: 18px; color: white; margin-bottom: 12px;"/>
+            </ui:VisualElement>
+            <ui:Button name="StartButton" text="COMENZAR JUEGO" style="font-size: 20px; padding: 12px 40px; border-radius: 8px; background-color: rgb(34, 197, 94); color: white; border-width: 0; -unity-font-style: bold; cursor: link; transition-property: background-color; transition-duration: 0.15s;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

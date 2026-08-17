@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
     // Audio source
     AudioSource audioSource;
 
@@ -42,6 +43,12 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Vector2 moveDirection = new Vector2(1, 0);
     bool isDead = false;
+    bool isGameActive = false;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     // Projectile launching
     [Header("Projectile Launching")]
@@ -59,6 +66,8 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Time.timeScale = 0f;
+        isGameActive = false;
         MoveAction.Enable();
         talkAction.Enable();
         launchAction.Enable();
@@ -77,6 +86,11 @@ public class PlayerController : MonoBehaviour
             {
                 UIHandler.Instance.RestartGame();
             }
+            return;
+        }
+
+        if (!isGameActive)
+        {
             return;
         }
 
@@ -222,5 +236,10 @@ public class PlayerController : MonoBehaviour
         move = Vector2.zero;
         animator.SetFloat("Speed", 0f);
         UIHandler.Instance.ShowGameOver(true);
+    }
+
+    public void StartGame()
+    {
+        isGameActive = true;
     }
 }
