@@ -3,6 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class EnemyController : MonoBehaviour
 {
+
+    public ParticleSystem smokeEffect;
+
     Animator animator;
 
     [Header("Movement")]
@@ -22,12 +25,18 @@ public class EnemyController : MonoBehaviour
 
     bool broken = true;
 
+    AudioSource audioSource;
+
+    [Header("Audio Clips")]
+    public AudioClip fixedClip;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         timer = changeTime;
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -104,5 +113,8 @@ public class EnemyController : MonoBehaviour
         broken = false;
         rigidbody2d.simulated = false;
         animator.SetTrigger("Fixed");
+        audioSource.Stop();
+        audioSource.PlayOneShot(fixedClip);
+        smokeEffect.Stop();
     }
 }

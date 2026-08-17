@@ -1,5 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="NPCDialog" src="project://database/Assets/NPCDialog.uxml?fileID=9197481963319205126&amp;guid=5bd141db1cd29e047b8b1cd6d495e4db&amp;type=3#NPCDialog"/>
+    <ui:Template name="GameOverScreen" src="project://database/Assets/GameOverScreen.uxml?fileID=9197481963319205126&amp;guid=f349df8b838fb634d827a0e8f261cebe&amp;type=3#GameOverScreen"/>
+    <ui:Template name="NPCDialog" src="project://database/Assets/NPCDialogue.uxml?fileID=9197481963319205126&amp;guid=5bd141db1cd29e047b8b1cd6d495e4db&amp;type=3#NPCDialogue"/>
     <ui:VisualElement name="HealthBarBackground" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/_2DAdventureGame/Art/Ruby/UI/UIHealthFrame.png?fileID=21300000&amp;guid=e04807cd45105ec409b00463fe6ab7b1&amp;type=3#UIHealthFrame&quot;); width: 421px; height: 187px; -unity-background-scale-mode: scale-to-fit;">
         <ui:VisualElement name="HealthBarContainer" style="flex-grow: 1; width: 240px; position: absolute; height: 76px; left: 165px; top: 55px;">
             <ui:VisualElement name="HealthBar" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_2DAdventureGame/Art/Ruby/UI/UIHealthBar.png?fileID=21300000&amp;guid=be3322f3a1dbc6e44b25b63f3bb91e16&amp;type=3#UIHealthBar&quot;); position: absolute; height: 62px; width: 221px; top: 2px; left: 7px;"/>
@@ -7,4 +8,10 @@
         <ui:VisualElement name="CharacterPortrait" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_2DAdventureGame/Art/Ducko/UI/CharacterPortrait.png?fileID=21300000&amp;guid=0332b35b8fe3cf8458eb0558889493d1&amp;type=3#CharacterPortrait&quot;); -unity-background-scale-mode: scale-to-fit; position: absolute; height: 183px; width: 181px; top: -3px; left: 6px;"/>
     </ui:VisualElement>
     <ui:Instance template="NPCDialog" name="NPCDialogue" style="position: absolute; left: 10%; top: 70%; right: 95px; bottom: 5%;"/>
+    <ui:VisualElement name="GameOverScreen" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; background-color: rgba(10, 10, 10, 0.85); display: none;">
+        <ui:Label text="Haz muerto" style="font-size: 64px; color: rgb(220, 53, 69); -unity-font-style: bold; -unity-text-align: middle-center; margin-bottom: 10px; letter-spacing: 5px;"/>
+        <ui:Label text="Presiona R o haz clic abajo para volver a intentar" style="font-size: 20px; color: rgb(180, 180, 180); -unity-text-align: middle-center; margin-bottom: 30px;"/>
+        <ui:Button name="RestartButton" text="VOLVER A JUGAR" style="font-size: 18px; padding: 12px 35px; border-radius: 8px; background-color: rgb(220, 53, 69); color: white; border-width: 0; -unity-font-style: bold; cursor: link; transition-property: background-color; transition-duration: 0.15s;"/>
+    </ui:VisualElement>
+    <ui:Instance template="GameOverScreen" name="GameOverScreen" enabled="false"/>
 </ui:UXML>

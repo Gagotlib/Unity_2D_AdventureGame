@@ -11,6 +11,7 @@ public class UIHandler : MonoBehaviour
     public float displayTime = 4.0f;
     private VisualElement m_NonPlayerDialogue;
     private float m_TimerDisplay;
+    private VisualElement m_GameOverScreen;
 
     private void Awake()
     {
@@ -27,6 +28,17 @@ public class UIHandler : MonoBehaviour
         m_NonPlayerDialogue = uiDocument.rootVisualElement.Q<VisualElement>("NPCDialogue");
         m_NonPlayerDialogue.style.display = DisplayStyle.None;
         m_TimerDisplay = -1.0f;
+
+        m_GameOverScreen = uiDocument.rootVisualElement.Q<VisualElement>("GameOverScreen");
+        if (m_GameOverScreen != null)
+        {
+            m_GameOverScreen.style.display = DisplayStyle.None;
+            Button restartButton = m_GameOverScreen.Q<Button>("RestartButton");
+            if (restartButton != null)
+            {
+                restartButton.clicked += RestartGame;
+            }
+        }
     }
 
     public void SetHealthValue(float percentage)
@@ -52,6 +64,21 @@ public class UIHandler : MonoBehaviour
 
         Label dialogueLabel = m_NonPlayerDialogue.Q<Label>();
         dialogueLabel.text = dialogue;
+    }
+
+    public void ShowGameOver(bool show)
+    {
+        if (m_GameOverScreen != null)
+        {
+            m_GameOverScreen.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+    }
+
+    public void RestartGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex
+        );
     }
 }
 

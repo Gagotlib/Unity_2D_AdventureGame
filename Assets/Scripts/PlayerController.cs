@@ -4,8 +4,16 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
+    // Audio source
+    AudioSource audioSource;
+
+    [Header("Audio Clips")]
+    public AudioClip hitClip;
+    public AudioClip launchClip;
+
     // Variables related to player character movement
     [Header("Movement")]
     public InputAction MoveAction;
@@ -33,6 +41,7 @@ public class PlayerController : MonoBehaviour
     // Variables related to the player character's animator
     Animator animator;
     Vector2 moveDirection = new Vector2(1, 0);
+    bool isDead = false;
 
     // Projectile launching
     [Header("Projectile Launching")]
@@ -56,11 +65,21 @@ public class PlayerController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+        {
+            if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
+            {
+                UIHandler.Instance.RestartGame();
+            }
+            return;
+        }
+
         move = MoveAction.ReadValue<Vector2>();
         if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
         {
@@ -112,6 +131,10 @@ public class PlayerController : MonoBehaviour
     // Called at fixed intervals. Used for physics updates.
     void FixedUpdate()
     {
+        if (isDead)
+        {
+            return;
+        }
         Vector2 position = (Vector2)rigidbody2d.position + movementSpeed * Time.deltaTime * move;
         rigidbody2d.MovePosition(position);
 
@@ -119,6 +142,11 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeHealth(int amount)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (amount < 0)
         {
             if (isInvincible)
@@ -128,6 +156,7 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             damageCooldown = timeInvincible;
             animator.SetTrigger("Hit");
+            audioSource.PlayOneShot(hitClip);
         }
 
         if (amount > 0)
@@ -146,6 +175,11 @@ public class PlayerController : MonoBehaviour
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHandler.Instance.SetHealthValue(currentHealth / (float)maxHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
     }
 
     void Launch()
@@ -160,6 +194,7 @@ public class PlayerController : MonoBehaviour
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         projectile.Launch(moveDirection, launchForce);
         animator.SetTrigger("Launch");
+        audioSource.PlayOneShot(launchClip);
     }
     void FindFriend()
     {
@@ -175,5 +210,17 @@ public class PlayerController : MonoBehaviour
                 UIHandler.Instance.DisplayDialogue(character.dialogue);
             }
         }
+    }
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+    }
+
+    void Die()
+    {
+        isDead = true;
+        move = Vector2.zero;
+        animator.SetFloat("Speed", 0f);
+        UIHandler.Instance.ShowGameOver(true);
     }
 }
